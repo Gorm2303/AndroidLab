@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Android lab</string>
-    <string name="edit_message">Enter a message</string>
-    <string name="button_send">Send</string>
+    <string name="edit_message">Enter a movie title</string>
+    <string name="button_send">Search</string>
+    <string name="button_write">write</string>
+    <string name="button_read">read</string>
+    <string name="button_delete">delete</string>
 </resources>

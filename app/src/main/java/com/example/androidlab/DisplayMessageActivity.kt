@@ -10,7 +10,7 @@ class DisplayMessageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_display_message)
 
         val message = intent.getStringExtra(EXTRA_MESSAGE)
-        val textView = findViewById<TextView>(R.id.textView).apply {
+        val textView = findViewById<TextView>(R.id.movieTitle).apply {
             text = message
         }
     }

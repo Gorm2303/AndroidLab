@@ -7,21 +7,23 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/button_send"
-        android:onClick="sendMessage"
-        android:text="Button"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextTextPersonName"
+        android:onClick="readData"
+        android:text="@string/button_send"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBaseline_toBaselineOf="@+id/findByTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName" />
+        app:layout_constraintStart_toEndOf="@+id/findByTitle"
+        app:rippleColor="#FFFFFF" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/findByTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -29,9 +31,40 @@
         android:ems="10"
         android:hint="@string/edit_message"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/button_send"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnWriteData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="134dp"
+        android:text="@string/button_write"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findByTitle" />
+
+    <Button
+        android:id="@+id/btnReadData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="17dp"
+        android:onClick="readData"
+        android:text="@string/button_read"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWriteData" />
+
+    <Button
+        android:id="@+id/btnDeleteData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:text="@string/button_delete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReadData" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
