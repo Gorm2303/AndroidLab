@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/button_send"
-        android:onClick="readData"
+        android:onClick="displayData"
         android:text="@string/button_send"
         android:textColor="#FFFFFF"
         app:layout_constraintBaseline_toBaselineOf="@+id/findByTitle"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="17dp"
-        android:onClick="readData"
+        android:onClick="displayData"
         android:text="@string/button_read"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnWriteData" />

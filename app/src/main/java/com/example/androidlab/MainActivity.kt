@@ -2,18 +2,15 @@ package com.example.androidlab
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidlab.databinding.ActivityMainBinding;
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.sql.Date
 
-
-const val EXTRA_MESSAGE = "com.example.androidlab.MESSAGE"
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
@@ -43,10 +40,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun writeData(){
         val title = "Spider man"
+        val releaseDate = 1000000000L
 
         if(title.isNotEmpty()) {
             val student = Movie(
-                null, title
+                null, title, releaseDate
             )
             GlobalScope.launch(Dispatchers.IO) {
 
@@ -58,28 +56,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun readData(view: View) {
-        val title = R.id.findByTitle.toString() //not working
 
-        if (title.isNotEmpty()){
 
-            lateinit var movie : Movie
+    fun displayData(view: View) {
+        val title = binding.findByTitle.text.toString()
 
-            GlobalScope.launch {
-
-                movie = appDb.movieDao().findByTitle(title)
-                Log.d("Robin Data",movie.toString())
-                displayData(movie)
-
-            }
-
-        }else Toast.makeText(this@MainActivity,"Please enter the data", Toast.LENGTH_SHORT).show()
-    }
-
-    fun displayData(movie: Movie) {
-
-        val intent = Intent(this, DisplayMessageActivity::class.java).apply {
-            putExtra(EXTRA_MESSAGE, movie.title)
+        val intent = Intent(this, FindMovieActivity::class.java).apply {
+            putExtra("EXTRA_MOVIE", title)
         }
         startActivity(intent)
     }
