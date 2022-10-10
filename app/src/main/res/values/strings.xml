@@ -2,7 +2,13 @@
     <string name="app_name">Android lab</string>
     <string name="edit_message">Enter a movie title</string>
     <string name="button_send">Search</string>
-    <string name="button_write">write</string>
+    <string name="button_print_all_data">Print DB</string>
     <string name="button_read">read</string>
-    <string name="button_delete">delete</string>
+    <string name="TVmovie_title">MOVIE NOT FOUND</string>
+    <string name="TVmovie_release">Please go back and try again</string>
+    <string name="button_top_rated">Top Rated Movies</string>
+    <string name="button_now_playing">Movies Playing Now</string>
+    <string name="button_upcoming">Upcoming Movies</string>
+    <string name="movie_poster">Movie poster</string>
+
 </resources>

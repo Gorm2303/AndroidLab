@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @TypeConverters(Converters::class)
-@Database(entities = [Movie :: class], version = 2)
+@Database(entities = [Movie :: class], version = 5)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun movieDao() : MovieDao
 
@@ -16,11 +16,11 @@ abstract class AppDatabase : RoomDatabase() {
         private var INSTANCE : AppDatabase? = null
 
         fun getDatabase (context : Context): AppDatabase {
+            synchronized(this) {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
             }
-            synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,

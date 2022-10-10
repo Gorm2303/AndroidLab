@@ -2,13 +2,10 @@ package com.example.androidlab
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import com.example.androidlab.databinding.ActivityFindMovieBinding
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.sql.Date
 
 class FindMovieActivity : AppCompatActivity() {
@@ -20,29 +17,35 @@ class FindMovieActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val title : String? = intent.getStringExtra("EXTRA_MOVIE")
-        Log.d("TitleIs", title.toString())
-        GlobalScope.launch {
+        Log.i("IntentGetExtra", "Title of movie is: " + title.toString())
+        Thread {
             val movie: Movie? = readData(title)
 
-            Log.d("MNF", "Movie is $movie")
+            Log.i("MovieRead", "Movie is $movie")
 
             if (movie != null) {
                 binding.movieTitle.text = movie.title
                 binding.movieRelease.text = Date(movie.releaseDate).toString()
+                //binding.movieImageView
             }
-        }
+        }.start()
     }
 
-    private suspend fun readData(title: String?) : Movie? {
-        var movie : Movie? = null
-        val appDb : AppDatabase = AppDatabase.getDatabase(this)
-        if (title == null) return null
+    private fun readData(title: String?) : Movie? {
+        val movie: Movie?
+        val appDb = AppDatabase.getDatabase(this)
+        Looper.prepare()
+        if (title == null) {
+            Toast.makeText(this@FindMovieActivity,"Please go back and enter the data", Toast.LENGTH_SHORT).show()
+            return null
+        }
+        movie = appDb.movieDao().findByTitle(title)
+        if (movie == null) {
+            Toast.makeText(this@FindMovieActivity,"Please go back and enter the data", Toast.LENGTH_SHORT).show()
+            return null
+        }
+        Log.i("Robin Data", movie.title)
 
-        if (title.isNotEmpty()){
-            movie = appDb.movieDao().findByTitle(title)
-            Log.d("Robin Data",movie.toString())
-
-        }else Toast.makeText(this@FindMovieActivity,"Please go back and enter the data", Toast.LENGTH_SHORT).show()
         return movie
     }
 }

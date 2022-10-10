@@ -1,21 +1,19 @@
 package com.example.androidlab
 
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidlab.databinding.ActivityMainBinding;
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.sql.Date
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
     private lateinit var appDb : AppDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,37 +21,53 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         appDb = AppDatabase.getDatabase(this)
+        initDataBase()
+    }
 
-        binding.btnWriteData.setOnClickListener {
-            writeData("Spider man", 1482192000000L)
-            writeData("Peter Pan", 1482193000000L)
+    private fun initDataBase() {
+        Thread {
+            Log.i("ThreadDelete", "Thread deletes every movie in DB")
+            appDb.movieDao().deleteAll()
+        }.start()
+        writeData("Spider man", 1482192000000L, "Spider man movie shoots his web from building to building")
+        writeData("Peter Pan", 1482193000000L, "Peter Pan flies with is friends")
+//        binding.btnPrintAllData.setOnClickListener {
+//        }
+    }
 
+    fun listMovies(view: View) {
+        val intent = Intent(this, MovieListActivity::class.java).apply {
+            putExtra("EXTRA_STRING", view.getTag().toString())
         }
+        startActivity(intent)
+    }
 
-        binding.btnDeleteData.setOnClickListener {
-            GlobalScope.launch {
-                appDb.movieDao().deleteAll()
+    fun printAllMovies(view : View) {
+        Thread {
+            Log.i("ThreadPrintMovies", "Thread Prints all movies from the database")
+            val movieList = appDb.movieDao().getAll()
+            for (movie : Movie in movieList) {
+                Log.i("ThreadPrintMovie", "Thread prints movie: $movie")
             }
-        }
+        }.start()
     }
 
-    private fun writeData(title : String, releaseInMiliSec : Long) {
+    private fun writeData(title: String, releaseInMiliSec: Long, overview : String) {
         val movie = Movie(
-            null, title, releaseInMiliSec
+            (Math.random() * 1000000).toInt(), title, releaseInMiliSec, overview,
         )
-        GlobalScope.launch(Dispatchers.IO) {
-
+        Thread {
             appDb.movieDao().insert(movie)
-            Log.d(
-                "IsInsertedInDB?",
-                "Movie inserted: ${appDb.movieDao().findByTitle(movie.title.toString())}"
+            Log.i(
+                "MovieInsert",
+                "Movie inserted: ${appDb.movieDao().findByTitle(movie.title)}"
             )
-
-        }
-        Toast.makeText(this@MainActivity, "Successfully written", Toast.LENGTH_SHORT).show()
+        }.start()
+        Toast.makeText(this@MainActivity, "DB was successfully written", Toast.LENGTH_SHORT).show()
 
     }
-    fun displayData(view: View) {
+
+    fun displaySearchResult(view: View) {
         val title = binding.findByTitle.text.toString()
 
         val intent = Intent(this, FindMovieActivity::class.java).apply {
