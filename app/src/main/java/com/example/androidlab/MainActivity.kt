@@ -36,10 +36,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun listMovies(view: View) {
-        val intent = Intent(this, MovieListActivity::class.java).apply {
-            putExtra("EXTRA_STRING", view.getTag().toString())
-        }
-        startActivity(intent)
+        
     }
 
     fun printAllMovies(view : View) {
