@@ -1,5 +1,7 @@
 package com.example.androidlab
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,14 +9,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
-class MovieAdapter(private val data: LinkedList<Movie>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    private val itemListener: RecyclerViewClickListener? = null
+class MovieAdapter(
+    private val data: LinkedList<Movie>,
+    private val context : Context,
+    private val itemListener: RecyclerViewClickListener
+    ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
-    inner class ViewHolder(item : View): RecyclerView.ViewHolder(item){
-        val employeeName : TextView = item.findViewById(R.id.name)
 
-        fun onClick(v: View?) {
-            itemListener!!.recyclerViewListClicked(v, this.layoutPosition)
+
+    inner class ViewHolder(item : View): RecyclerView.ViewHolder(item), View.OnClickListener{
+        val movieName : TextView = item.findViewById(R.id.name)
+
+        override fun onClick(v: View?) {
+            itemListener.recyclerViewListClicked(v, this.layoutPosition)
         }
     }
 
@@ -24,7 +31,7 @@ class MovieAdapter(private val data: LinkedList<Movie>) : RecyclerView.Adapter<M
     }
 
     override fun onBindViewHolder(holder: ViewHolder, i: Int) {
-        holder.employeeName.text = data[i].title
+        holder.movieName.text = data[i].title
     }
 
     override fun getItemCount(): Int {

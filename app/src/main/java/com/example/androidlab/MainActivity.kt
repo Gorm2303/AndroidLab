@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewClickListener {
                 movieList.add(movie)
             }
         }.start()
-            adapter = MovieAdapter(movieList)
+            adapter = MovieAdapter(movieList, this, this)
 
         val recyclerView: RecyclerView = findViewById(R.id.movieRecyclerView)
         recyclerView.setHasFixedSize(true)
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewClickListener {
 
 
     override fun recyclerViewListClicked(v: View?, position: Int) {
+        Log.i("OnClickTest", "It clicked")
 
     }
 
