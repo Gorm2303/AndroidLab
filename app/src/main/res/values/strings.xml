@@ -10,5 +10,5 @@
     <string name="button_now_playing">Movies Playing Now</string>
     <string name="button_upcoming">Upcoming Movies</string>
     <string name="movie_poster">Movie poster</string>
-
+    <string name="movie_list">Movies</string>
 </resources>
