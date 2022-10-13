@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
 class MovieAdapter(
-    private val data: LinkedList<Movie>,
+    private val data: ArrayList<Movie>,
     private val context : Context,
     private val itemListener: RecyclerViewClickListener
     ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {

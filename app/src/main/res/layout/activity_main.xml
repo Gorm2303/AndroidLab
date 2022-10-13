@@ -46,6 +46,7 @@
         android:layout_marginTop="24dp"
         android:onClick="printAllMovies"
         android:text="@string/button_print_all_data"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/findByTitle" />

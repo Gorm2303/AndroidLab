@@ -24,9 +24,14 @@ class FindMovieActivity : AppCompatActivity() {
             Log.i("MovieRead", "Movie is $movie")
 
             if (movie != null) {
-                binding.movieTitle.text = movie.title
-                binding.movieRelease.text = Date(movie.releaseDate).toString()
+                binding.movieTitle.text = "${movie.title}"
+                binding.release.text = "Released: ${Date(movie.releaseDate)}"
+                binding.runtime.text = "Runtime: ${movie.runtime} minutes"
                 //binding.movieImageView
+                binding.overviewText.text = "Overview: \n${movie.overview}"
+                binding.originalLanguage.text = "Language: ${movie.originalLanguage}"
+                binding.budget.text = "Budget: ${movie.budget}$ million"
+                binding.revenue.text = "Revenue: ${movie.revenue}$ million"
             }
         }.start()
     }
